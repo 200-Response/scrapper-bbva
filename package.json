@@ -1,0 +1,18 @@
+{
+  "name": "scrapper-bbva",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "vue": "^3.2.41",
+    "vue3-dropzone": "^2.0.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.1.2",
+    "vite": "^3.1.8"
+  }
+}
