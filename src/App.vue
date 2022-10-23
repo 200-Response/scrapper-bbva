@@ -15,6 +15,7 @@ const urlS3 = ref('none');
 const loading = ref(false);
 const fileSelected = ref(null);
 const ArchivoProcesado = ref(false);
+const archivoDownload = ref("");
 
 const {
   getRootProps,
@@ -45,7 +46,7 @@ async function processFile(){
   await axios({
     method: 'put',
     url: urlS3.value,
-    data:fileSelected.value[0],
+    data:fileSelected.value,
     headers: {
       'Content-Type': 'text/csv'
     }
@@ -53,10 +54,26 @@ async function processFile(){
   fileIsLoaded.value = false;
   loading.value = true;
 
-  setTimeout(()=>{
-    ArchivoProcesado.value = true;
-  },5000);
 
+  waitForAnswer();
+
+}
+
+
+async function waitForAnswer(){
+  let loopStatus = setInterval(()=>{
+    console.log('preguntando status');
+    axios.get('http://localhost:3088/estado')
+    .then(function(response){
+        let {csv, status} = response.data;
+        if(status=='finish'){
+          console.log(' status finish');
+          ArchivoProcesado.value = true;
+          archivoDownload.value = csv;
+          clearInterval(loopStatus);
+        }
+    });
+  },3000);
 }
 
 async function reset(){
@@ -111,7 +128,7 @@ onMounted(async() => {
         </div>
       </div>
       <div v-else-if="ArchivoProcesado">
-        <h3><a href="#">descargar archivo</a></h3>
+        <h3><a :href="archivoDownload" target="_blank" >descargar archivo</a></h3>
       </div>
       <div v-if="ArchivoProcesado">
           <button class="button-send"   @click="reset" ><i class="fa fa-plus"></i> Subir un nuevo archivo</button>
