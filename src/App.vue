@@ -99,14 +99,14 @@ onMounted(async() => {
         <div v-if="!loading && !fileIsLoaded">
           <div v-bind="getRootProps()">
             <input v-bind="getInputProps()" />
-            <img src="src/assets/upload.png" class="upload-image">
+            <img src="/src/assets/upload.png" class="upload-image">
             <p v-if="isDragActive" class="text-center">Arrastre su archivo aquí ...</p>
             <h3 class="title text-center">Seleccione el archivo</h3>
             <p class="small text-center">o arrastre y suelte aquí</p>
           </div>
         </div>
         <div v-else-if="loading">
-          <img src="src/assets/load.gif" class="loading-image">
+          <img src="/src/assets/load.gif" class="loading-image">
           <h3 class="title text-center">Procesando archivo...</h3>
         </div>
       </div>
@@ -114,7 +114,7 @@ onMounted(async() => {
         <h3><a href="#">descargar archivo</a></h3>
       </div>
       <div v-if="ArchivoProcesado">
-          <button class="button-send"   @click="reset" ><i class="fa fa-plus"></i>Subir un nuevo archivo</button>
+          <button class="button-send"   @click="reset" ><i class="fa fa-plus"></i> Subir un nuevo archivo</button>
       </div>
       <div v-if="!ArchivoProcesado">
         <button class="button-send" :disabled="!fileIsLoaded"  @click="processFile" ><i class="fa fa-gear"></i> Procesar</button>
