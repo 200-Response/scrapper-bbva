@@ -63,7 +63,7 @@ async function processFile(){
 async function waitForAnswer(){
   let loopStatus = setInterval(()=>{
     console.log('preguntando status');
-    axios.get('http://localhost:3088/estado')
+    axios.get('https://gt47vf0wmj.execute-api.us-east-1.amazonaws.com/production/status')
     .then(function(response){
         let {csv, status} = response.data;
         if(status=='finish'){
